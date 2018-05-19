@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>psychic game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
+    <script src="assets/javascript/game.js"></script>
+</head>
+
+<body>
+    <div id="game">
+        <h1>The Psychic Game</h1>
+        <p>Guess what letter I'm thinking of</p>
+        <p>Total Wins: </p>
+        <p>Total Losses: </p>
+        <p>Guesses Left: </p>
+        <p>Your Guesses so far: </p>
+    </div>
+
+    <script>
+        var wins = 0;
+        var losses = 0;
+        var guessesLeft = 9;
+        var guessesUsed = [];
+        var cpuChoice = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
+            't', 'u', 'v', 'w', 'x', 'y', 'z'
+        ];
+
+        document.onkeyup = function () {
+            var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+            var cpuGuess = cpuChoice[Math.floor(Math.random() * cpuChoice.length)];
+            guessesUsed.push(userGuess);
+
+            if (userGuess == cpuGuess) {
+                wins++;
+                guessesLeft = 9;
+                guessesUsed.length = 0;
+            } else if (guessesLeft == 0) {
+                losses++;
+                guessesLeft = 9;
+                guessesUsed.length = 0;
+            } else if (userGuess !== cpuGuess) {
+                guessesLeft--;
+            }
+
+            var display = "<h1>The Psychic Game</h1>" +
+                "<p>Guess what letter I'm thinking of!</p>" +
+                "<p>Total Wins: " +
+                wins +
+                "</p>" +
+                "<p>Total Losses: " +
+                losses +
+                "</p>" +
+                "<p>Guesses Left: " +
+                guessesLeft +
+                "</p>" +
+                "<p>Your Guesses so far: " +
+                guessesUsed +
+                "</p>";
+            document.querySelector('#game').innerHTML = display;
+        }
+    </script>
+</body>
+
+</html>
